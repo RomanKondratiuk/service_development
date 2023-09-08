@@ -1,46 +1,45 @@
 {% extends 'mailing/base.html' %}
 
 {% block content %}
-    <div class="row">
-        <div class="col-12">
-<!--            <a href="{% url 'mailing:mailing_create' %}" class="btn btn-primary float-end">-->
-<!--                Create mailing-->
-<!--            </a>-->
-        </div>
-        <div class="col-12">
-            <div class="row">
-                {% for object in object_list %}
-                    <div class="col-4">
-                        <div class="card">
-                            <div class="card-header">Mailing #{{ object.pk }}</div>
-                            <div class="card-body">
-                                <table class="table">
-                                    <tr>
-                                        <td>Time</td>
-                                        <td>{{ object.time|date:"H:i" }}</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Period</td>
-                                        <td>{{ object.get_period_display }}</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Status</td>
-                                        <td>{{ object.get_status_display }}</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Message</td>
-                                        <td>{{ object.message }}</td>
-                                    </tr>
-                                </table>
-                            </div>
-                            <div class="card-footer">
-                                <a href="{% url 'mailing:mailing_update' object.pk %}" class="btn btn-success text-white">Change</a>
-                                <a href="{% url 'mailing:mailing_delete' object.pk %}" class="btn btn-danger">Delete</a>
-                            </div>
-                        </div>
+<a href="{% url 'mailing:mailing_create'%}" class="btn btn-primary my-2">Create mailing</a>
+<div class="row">
+    <div class="col-12">
+    </div>
+    <div class="col-12">
+        <div class="row">
+            {% for object in object_list %}
+            <div class="col-4">
+                <div class="card">
+                    <div class="card-header">Mailing #{{ object.pk }}</div>
+                    <div class="card-body">
+                        <table class="table">
+                            <tr>
+                                <td>Time</td>
+                                <td>{{ object.time|date:"H:i" }}</td>
+                            </tr>
+                            <tr>
+                                <td>Period</td>
+                                <td>{{ object.get_period_display }}</td>
+                            </tr>
+                            <tr>
+                                <td>Status</td>
+                                <td>{{ object.get_status_display }}</td>
+                            </tr>
+                            <tr>
+                                <td>Message</td>
+                                <td>{{ object.message }}</td>
+                            </tr>
+                        </table>
                     </div>
-                {% endfor %}
+                    <div class="card-footer">
+                        <a href="{% url 'mailing:mailing_update' object.pk %}"
+                           class="btn btn-success text-white">Change</a>
+                        <a href="{% url 'mailing:mailing_delete' object.pk %}" class="btn btn-danger">Delete</a>
+                    </div>
+                </div>
             </div>
+            {% endfor %}
         </div>
     </div>
+</div>
 {% endblock %}
