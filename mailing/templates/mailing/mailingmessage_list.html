@@ -1,0 +1,38 @@
+{% extends 'mailing/base.html' %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-12">
+            <a href="{% url 'mailing:messages_create' %}" class="btn btn-primary float-end">
+                Create message
+            </a>
+        </div>
+        <div class="col-12">
+            <div class="row">
+                {% for object in object_list %}
+                    <div class="col-4">
+                        <div class="card">
+                            <div class="card-header">Message #{{ object.pk }}</div>
+                            <div class="card-body">
+                                <table class="table">
+                                    <tr>
+                                        <td>Subject</td>
+                                        <td>{{ object.subject }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Message</td>
+                                        <td>{{ object.message }}</td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="card-footer">
+                                <a href="{% url 'mailing:messages_update' object.pk %}" class="btn btn-success text-white">Change</a>
+                                <a href="{% url 'mailing:messages_delete' object.pk %}" class="btn btn-danger">Delete</a>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+{% endblock %}
