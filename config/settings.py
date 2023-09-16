@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 from pathlib import Path
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -39,7 +40,12 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    'django_crontab',
+
     'mailing',
+    'users',
+
+
 ]
 
 MIDDLEWARE = [
@@ -130,3 +136,18 @@ STATICFILES_DIRS = (
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+AUTH_USER_MODEL = 'users.User'
+
+EMAIL_HOST = 'smtp.mail.ru'
+EMAIL_PORT = 2525
+EMAIL_HOST_USER = "roma.kondratiuk2001@mail.ru"
+EMAIL_HOST_PASSWORD = "HBtLuUHivhNerWdcU1cc"
+EMAIL_USE_TLS = True
+EMAIL_USE_SSL = False
+
+
+
+CRONJOBS = [
+    ('* * * * *', 'mailing.services.send_mails')
+]
