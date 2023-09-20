@@ -1,0 +1,50 @@
+[
+  {
+    "model": "mailing.serviceclient",
+    "pk": 1,
+    "fields": {
+      "email": "roma.kondratiuk2001@mail.ru",
+      "first_name": "Roman",
+      "last_name": "Kondratiuk",
+      "comment": "hi, roman"
+    }
+  },
+  {
+    "model": "mailing.serviceclient",
+    "pk": 2,
+    "fields": {
+      "email": "roma.kondratiuk@icloud.com",
+      "first_name": "Roma",
+      "last_name": "Kondratiuk",
+      "comment": "name_2"
+    }
+  },
+  {
+    "model": "mailing.mailingsettings",
+    "pk": 1,
+    "fields": {
+      "time": "06:15:00",
+      "period": "daily",
+      "status": "started",
+      "message": 1
+    }
+  },
+  {
+    "model": "mailing.mailingsettings",
+    "pk": 2,
+    "fields": {
+      "time": "01:30:00",
+      "period": "daily",
+      "status": "started",
+      "message": 1
+    }
+  },
+  {
+    "model": "mailing.mailingmessage",
+    "pk": 1,
+    "fields": {
+      "subject": "topic_1",
+      "message": "topic-1"
+    }
+  }
+]

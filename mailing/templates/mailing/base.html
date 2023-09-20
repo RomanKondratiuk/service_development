@@ -33,6 +33,15 @@
                 <li><a href="{% url 'mailing:mailing_list' %}" class="text-white">Mailings</a></li>
                 <li><a href="{% url 'mailing:clients' %}" class="text-white">Clients</a></li>
                 <li><a href="{% url 'mailing:messages' %}" class="text-white">Messages</a></li>
+                {% if user.is_authenticated %}
+                  <li><a href="{% url 'users:profile' %}" class="text-white">Profile</a></li>
+                  <li><a href="{% url 'users:logout' %}" class="text-white">Logout</a></li>
+                {% else %}
+                  <li><a href="{% url 'users:login' %}" class="text-white">Sign</a></li>
+                  <li><a href="{% url 'users:register' %}" class="text-white">Log in</a></li>
+
+                {% endif%}
+
 
               </ul>
             </div>

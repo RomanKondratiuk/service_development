@@ -87,7 +87,7 @@ class MailingLog(models.Model):
     client = models.ForeignKey(ServiceClient, on_delete=models.CASCADE, verbose_name='client')
     settings = models.ForeignKey(MailingSettings, on_delete=models.CASCADE, verbose_name='setting')
 
-    status = models.CharField(choices=STATUSES, default=STATUS_OK, verbose_name='status')
+    status = models.CharField(max_length=50, choices=STATUSES, default=STATUS_OK, verbose_name='status')
 
     date_last_attempt = models.DateTimeField(auto_now_add=True, verbose_name='date last attempt')
 
