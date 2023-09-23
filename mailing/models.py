@@ -41,7 +41,7 @@ class MailingSettings(models.Model):
     time = models.TimeField(verbose_name='Time')
     period = models.CharField(max_length=20, choices=PERIODS, default=PERIOD_DAILY, verbose_name='period')
     status = models.CharField(max_length=20, choices=STATUSES, default=STATUS_CREATED, verbose_name='status')
-
+    is_active = models.BooleanField(default=True, verbose_name='is_active', **NULLABLE)
     message = models.ForeignKey('MailingMessage', on_delete=models.CASCADE, verbose_name='message', **NULLABLE)
 
     def __str__(self):

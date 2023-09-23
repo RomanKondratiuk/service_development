@@ -3,15 +3,63 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title></title>
+    <title>main page</title>
 </head>
 <body>
-{% block content %}
-                    <a class="p-2 btn btn-outline-primary" href="{% url 'mailing:mailing_list'%}">Mailings</a>
-                    <a class="p-2 btn btn-outline-primary" href="{% url 'mailing:clients'%}">Clients</a>
-                    <a class="p-2 btn btn-outline-primary" href="{% url 'mailing:messages'%}">Messages</a><br> <br>
-                    <a class="p-2 btn btn-outline-primary" href="{% url 'mailing:messages'%}">Messages</a>
-
-{% endblock %}
+    {% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-4">
+                <div class="card">
+                    <div class="card-header">Number of all mailings</div>
+                    <div class="card-body">
+                        <table class="table">
+                            <tr>
+                                <td>All Mailings:</td>
+                                <td>{{ all_mailings }}</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="card">
+                    <div class="card-header">Number of all active mailings</div>
+                    <div class="card-body">
+                        <table class="table">
+                            <tr>
+                                <td>Active Mailings:</td>
+                                <td>{{ filtered_mailings }}</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="card">
+                    <div class="card-header">Number of unique clients</div>
+                    <div class="card-body">
+                        <table class="table">
+                            <tr>
+                                <td>Unique clients:</td>
+                                <td>{{ unique_clients }}</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <h2>Random blog articles:</h2>
+                <ul>
+                    {% for article in random_articles %}
+                        <li><a href="#">{{ article.title }}</a></li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+    {% endblock %}
 </body>
 </html>

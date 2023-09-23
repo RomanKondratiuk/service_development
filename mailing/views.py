@@ -1,10 +1,16 @@
+from random import random
+
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy, reverse
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 
+from blog.models import BlogArticle
 from mailing.apps import MailingConfig
 from mailing.forms import MailingSettingsForm, ServiceClientForm, MailingMessageForm
 from mailing.models import MailingSettings, ServiceClient, MailingMessage, MailingClient
+
+from django.shortcuts import render
+
 
 app_name = MailingConfig.name
 
@@ -103,3 +109,20 @@ def toggle_client(request, pk, client_pk):
     else:
         MailingClient.objects.create(client_id=client_pk, settings_id=pk)
     return redirect(reverse('mailing:mailing_clients', args=[pk]))
+
+
+def mailing_list(request):
+    all_mailings = MailingSettings.objects.all().count()
+    filtered_mailings = MailingSettings.objects.filter(is_active=True).count()
+    unique_clients = ServiceClient.objects.count()
+    random_articles = random.sample(list(BlogArticle.objects.all()), 3)
+
+    context = {
+        'all_mailings': all_mailings,
+        'filtered_mailings': filtered_mailings,
+        'unique_clients': unique_clients,
+        'random_articles': random_articles,
+
+    }
+
+    return render(request, 'mailings/view.html', context)
