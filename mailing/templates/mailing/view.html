@@ -54,7 +54,8 @@
                 <h2>Random blog articles:</h2>
                 <ul>
                     {% for article in random_articles %}
-                        <li><a href="#">{{ article.title }}</a></li>
+                        <li><a href="{% url 'blog:blog_articles' %}">{{ article.title }}</a></li>
+
                     {% endfor %}
                 </ul>
             </div>

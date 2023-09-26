@@ -129,18 +129,13 @@ def toggle_client(request, pk, client_pk):
     return redirect(reverse('mailing:mailing_clients', args=[pk]))
 
 
-# def mailing_list(request):
-#     all_mailings = MailingSettings.objects.all().count()
-#     filtered_mailings = MailingSettings.objects.filter(is_active=True).count()
-#     unique_clients = ServiceClient.objects.count()
-#     random_articles = random.sample(list(BlogArticle.objects.all()), 3)
+
+# def blog_articles(request):
+#     articles = BlogArticle.objects.all()
 #
 #     context = {
-#         'all_mailings': all_mailings,
-#         'filtered_mailings': filtered_mailings,
-#         'unique_clients': unique_clients,
-#         'random_articles': random_articles,
-#
+#         'articles': articles,
 #     }
 #
-#     return render(request, 'mailings/view.html', context)
+#     return render(request, 'blog/articles.html', context)
+#
