@@ -1,6 +1,7 @@
 import random
 
-
+from django.conf import settings
+from django.core.cache import cache
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy, reverse
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
@@ -116,7 +117,16 @@ class MailingClientsListView(ListView):
 
     def get_context_data(self, *args, **kwargs):
         context_data = super().get_context_data(*args, **kwargs)
-        context_data['clients'] = ServiceClient.objects.all()
+        if settings.CACHE_ENABLED:
+            key = f"subject_list_{self.object.pk}"
+            subject_list = cache.get(key)
+            if subject_list is None:
+                subject_list = ServiceClient.objects.all()
+                cache.set(key, subject_list)
+        else:
+            subject_list = ServiceClient.objects.all()
+
+        context_data['clients'] = subject_list
         context_data['mailing_pk'] = self.kwargs.get('pk')
         return context_data
 
