@@ -13,7 +13,6 @@ from mailing.models import MailingSettings, ServiceClient, MailingMessage, Maili
 
 from django.shortcuts import render
 
-
 app_name = MailingConfig.name
 
 
@@ -27,7 +26,11 @@ class ModelsListView(ListView):
         all_mailings = MailingSettings.objects.all().count()
         filtered_mailings = MailingSettings.objects.filter(is_active=True).count()
         unique_clients = ServiceClient.objects.count()
-        random_articles = random.sample(list(BlogArticle.objects.all()), 3)
+
+        if BlogArticle.objects.exsist():
+            random_articles = random.sample(list(BlogArticle.objects.all()), 3)
+        else:
+            random_articles = []
 
         context.update({
             'all_mailings': all_mailings,
@@ -137,8 +140,6 @@ def toggle_client(request, pk, client_pk):
     else:
         MailingClient.objects.create(client_id=client_pk, settings_id=pk)
     return redirect(reverse('mailing:mailing_clients', args=[pk]))
-
-
 
 # def blog_articles(request):
 #     articles = BlogArticle.objects.all()
