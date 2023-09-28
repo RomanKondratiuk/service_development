@@ -1,9 +1,14 @@
 import random
 
+from django.contrib.auth.decorators import login_required
+from django.core.exceptions import PermissionDenied
+from django.http import HttpResponseForbidden
 from django.conf import settings
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.cache import cache
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy, reverse
+from django.utils.decorators import method_decorator
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 
 from blog.models import BlogArticle
@@ -27,7 +32,7 @@ class ModelsListView(ListView):
         filtered_mailings = MailingSettings.objects.filter(is_active=True).count()
         unique_clients = ServiceClient.objects.count()
 
-        if BlogArticle.objects.exsist():
+        if BlogArticle.objects.exists():
             random_articles = random.sample(list(BlogArticle.objects.all()), 3)
         else:
             random_articles = []
@@ -42,12 +47,21 @@ class ModelsListView(ListView):
         return context
 
 
+@method_decorator(login_required, name='dispatch')
 class MailingListView(ListView):
     model = MailingSettings
+    template_name = 'mailing_list.html'
     context = {
         'title': 'mailing list'
     }
-    # template_name = 'mailing/index.html'
+
+    def get_queryset(self):
+        return MailingSettings.objects.filter(user=self.request.user)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = 'Mailing List'
+        return context
 
 
 class MailingSettingsCreateView(CreateView):
@@ -141,12 +155,18 @@ def toggle_client(request, pk, client_pk):
         MailingClient.objects.create(client_id=client_pk, settings_id=pk)
     return redirect(reverse('mailing:mailing_clients', args=[pk]))
 
-# def blog_articles(request):
-#     articles = BlogArticle.objects.all()
-#
-#     context = {
-#         'articles': articles,
-#     }
-#
-#     return render(request, 'blog/articles.html', context)
-#
+
+class CustomMailingSettingsUpdateView(LoginRequiredMixin, UpdateView):
+    model = MailingSettings
+    form_class = MailingSettingsForm
+    success_url = reverse_lazy('mailing:mailing_list')
+    login_url = '/users:login.html/'
+
+    def get_object(self, queryset=None):
+        obj = super().get_object(queryset)
+        if obj.user != self.request.user:
+            if self.raise_exception:
+                raise PermissionDenied("You don't have access to this mailing.")
+            else:
+                return HttpResponseForbidden("You don't have access to this mailing.")
+        return obj

@@ -1,5 +1,7 @@
 from django.db import models
 
+from users.models import User
+
 NULLABLE = {'blank': True, 'null': True}
 
 
@@ -43,6 +45,8 @@ class MailingSettings(models.Model):
     status = models.CharField(max_length=20, choices=STATUSES, default=STATUS_CREATED, verbose_name='status')
     is_active = models.BooleanField(default=True, verbose_name='is_active', **NULLABLE)
     message = models.ForeignKey('MailingMessage', on_delete=models.CASCADE, verbose_name='message', **NULLABLE)
+    #
+    user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='user', default=9)
 
     def __str__(self):
         return f'{self.time} / {self.period}'

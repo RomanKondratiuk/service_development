@@ -1,3 +1,4 @@
+from django.contrib.auth.views import LoginView
 from django.urls import path
 from django.views.decorators.cache import cache_page
 
@@ -5,7 +6,7 @@ from mailing import views
 from mailing.views import MailingListView, MailingSettingsCreateView, MailingSettingsUpdateView, \
     MailingSettingsDeleteView, ServiceClientListView, ServiceClientCreateView, ServiceClientUpdateView, \
     ServiceClientDeleteView, MailingMessageListView, MailingMessageCreateView, MailingMessageUpdateView, \
-    MailingMessageDeleteView, MailingClientsListView, ModelsListView, toggle_client
+    MailingMessageDeleteView, MailingClientsListView, ModelsListView, toggle_client, CustomMailingSettingsUpdateView
 
 urlpatterns = [
 
@@ -13,7 +14,7 @@ urlpatterns = [
 
     path('mailings', MailingListView.as_view(), name='mailing_list'),
     path('create/', MailingSettingsCreateView.as_view(), name='mailing_create'),
-    path('update/<int:pk>', MailingSettingsUpdateView.as_view(), name='mailing_update'),
+    path('update/<int:pk>', CustomMailingSettingsUpdateView.as_view(), name='mailing_update'),
     path('delete/<int:pk>', MailingSettingsDeleteView.as_view(), name='mailing_delete'),
 
 
@@ -26,6 +27,8 @@ urlpatterns = [
     path('messages/create/', MailingMessageCreateView.as_view(), name='messages_create'),
     path('messages/update/<int:pk>/', MailingMessageUpdateView.as_view(), name='messages_update'),
     path('messages/delete/<int:pk>/', MailingMessageDeleteView.as_view(), name='messages_delete'),
+
+    path('accounts/login/', LoginView.as_view(), name='login'),
 
     # path('articles/', views.blog_articles, name='blog_articles'),
     #
