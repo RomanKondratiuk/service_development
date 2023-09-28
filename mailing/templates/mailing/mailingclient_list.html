@@ -4,7 +4,7 @@
     <div class="row">
         <div class="col-6">
             <div class="card">
-                <div class="card-header">Клиенты рассылки</div>
+                <div class="card-header">Mailings client</div>
                 <div class="card-body">
                     <ul class="list-unstyled">
                         {% for item in object_list %}
@@ -16,19 +16,19 @@
                     </ul>
                 </div>
                 <div class="card-footer">
-                    <a href="{% url 'mailing:mailing_list' %}" class="btn btn-info">Назад</a>
+                    <a href="{% url 'mailing:mailing_list' %}" class="btn btn-info">Back</a>
                 </div>
             </div>
         </div>
         <div class="col-6">
             <div class="card">
-                <div class="card-header">Клиенты для добавления</div>
+                <div class="card-header">Clients to add</div>
                 <div class="card-body">
                     <ul class="list-unstyled">
                         {% for item in clients %}
                             <li>
                                 {{ item }}
-                                <a class="float-end btn btn-outline-primary" href="{% url 'mailing:mailing_clients_toggle' mailing_pk item.pk %}">Добавить</a>
+                                <a class="float-end btn btn-outline-primary" href="{% url 'mailing:mailing_clients_toggle' mailing_pk item.pk %}">Add</a>
                             </li>
                         {% endfor %}
                     </ul>
