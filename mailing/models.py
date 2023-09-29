@@ -46,8 +46,8 @@ class MailingSettings(models.Model):
     is_active = models.BooleanField(default=True, verbose_name='is_active', **NULLABLE)
     message = models.ForeignKey('MailingMessage', on_delete=models.CASCADE, verbose_name='message', **NULLABLE)
 
-    client = models.ForeignKey(ServiceClient, on_delete=models.CASCADE, verbose_name='client', default=4)
-
+    # clients = models.ForeignKey(ServiceClient, on_delete=models.CASCADE, verbose_name='client', default=4)
+    clients = models.ManyToManyField(ServiceClient, verbose_name='clients')
     user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='user', default=9)
 
     def __str__(self):

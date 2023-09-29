@@ -67,6 +67,7 @@ class MailingListView(ListView):
 class MailingSettingsCreateView(CreateView):
     model = MailingSettings
     form_class = MailingSettingsForm
+    template_name = 'mailing/mailingsettings_form.html'
     success_url = reverse_lazy('mailing:mailing_list')
 
 
