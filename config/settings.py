@@ -22,7 +22,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-k^9ky$o500pyeh3*o!cji1zn8p_3)p*yl59!8l*7frvpkg%ndi'
-PASSWORD_DB = '20010906'
+DATABASE_PASSWORD = '20010906'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -88,7 +88,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'service_development',
         'USER': 'postgres',
-        'PASSWORD': PASSWORD_DB
+        'PASSWORD': DATABASE_PASSWORD
     }
 }
 
